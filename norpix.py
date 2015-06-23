@@ -43,7 +43,11 @@ class SeqFile(object):
         self.imfloat = SeqImageFloat(self)
         # Format parameters
         self.bpp = h['BitDepth']
-        self._imageOffset = h['HeaderSize']
+        if h['Version'] == 5: # if StreamPix version 6
+            self._imageOffset = 8192
+        else: # previous versions
+            self._imageOffset = 1024
+#        self._imageOffset = h._imageOffset # h['HeaderSize']
         self._imageBlockSize = h['TrueImageSize']
         self.filesize = os.stat(filename).st_size
         self.imageCount = (self.filesize - h['HeaderSize']) / h['TrueImageSize']
