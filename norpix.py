@@ -47,7 +47,6 @@ class SeqFile(object):
             self._imageOffset = 8192
         else: # previous versions
             self._imageOffset = 1024
-#        self._imageOffset = h._imageOffset # h['HeaderSize']
         self._imageBlockSize = h['TrueImageSize']
         self.filesize = os.stat(filename).st_size
         self.imageCount = (self.filesize - h['HeaderSize']) / h['TrueImageSize']
